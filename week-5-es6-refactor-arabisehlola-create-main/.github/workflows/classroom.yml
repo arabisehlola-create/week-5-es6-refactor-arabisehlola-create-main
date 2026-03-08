@@ -1,0 +1,100 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: No var used
+      id: no-var-used
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: No var used
+        setup-command: ''
+        command: '! grep -Rnw "assets/js" -e "\bvar\b"'
+        timeout: 10
+        max-score: 15
+    - name: Uses const/let
+      id: uses-const-let
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Uses const/let
+        setup-command: ''
+        command: grep -Rnw "assets/js" -e "\bconst\b|\blet\b"
+        timeout: 10
+        max-score: 10
+    - name: Arrow functions present
+      id: arrow-functions-present
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Arrow functions present
+        setup-command: ''
+        command: grep -Rnw "assets/js" -e "=>"
+        timeout: 10
+        max-score: 15
+    - name: Template literals used
+      id: template-literals-used
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Template literals used
+        setup-command: ''
+        command: grep -Rnw "assets/js" -e "\`.*\$\{.*\}.*\`"
+        timeout: 10
+        max-score: 15
+    - name: Spread operator used
+      id: spread-operator-used
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Spread operator used
+        setup-command: ''
+        command: grep -Rnw "assets/js" -e "\.\.\."
+        timeout: 10
+        max-score: 10
+    - name: Default parameters used
+      id: default-parameters-used
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Default parameters used
+        setup-command: ''
+        command: grep -Rnw "assets/js" -e "function\s+\w+\([^)]*=|=>\s*\([^)]*="
+        timeout: 10
+    - name: utilities file exists
+      id: utilities-file-exists
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: utilities file exists
+        setup-command: ''
+        command: test -f assets/js/utilities.js
+        timeout: 10
+        max-score: 5
+    - name: ES6 comments present
+      id: es6-comments-present
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: ES6 comments present
+        setup-command: ''
+        command: grep -Rnw "assets/js" -e "ES6|arrow function|template literal|destructuring|spread|default
+          parameter"
+        timeout: 10
+        max-score: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        NO-VAR-USED_RESULTS: "${{steps.no-var-used.outputs.result}}"
+        USES-CONST-LET_RESULTS: "${{steps.uses-const-let.outputs.result}}"
+        ARROW-FUNCTIONS-PRESENT_RESULTS: "${{steps.arrow-functions-present.outputs.result}}"
+        TEMPLATE-LITERALS-USED_RESULTS: "${{steps.template-literals-used.outputs.result}}"
+        SPREAD-OPERATOR-USED_RESULTS: "${{steps.spread-operator-used.outputs.result}}"
+        DEFAULT-PARAMETERS-USED_RESULTS: "${{steps.default-parameters-used.outputs.result}}"
+        UTILITIES-FILE-EXISTS_RESULTS: "${{steps.utilities-file-exists.outputs.result}}"
+        ES6-COMMENTS-PRESENT_RESULTS: "${{steps.es6-comments-present.outputs.result}}"
+      with:
+        runners: no-var-used,uses-const-let,arrow-functions-present,template-literals-used,spread-operator-used,default-parameters-used,utilities-file-exists,es6-comments-present
