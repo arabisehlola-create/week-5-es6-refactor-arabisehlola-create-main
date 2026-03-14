@@ -6,6 +6,7 @@
  * @param {number} b - Second number
  * @returns {number} Sum of a and b
  */
+// ES6 arrow function 
 export const add = (a = 0, b = 0) => a + b;
 
 /**
@@ -44,7 +45,7 @@ export const divide = (a = 0, b = 1) => {
  * @param {number} secondNum - Second operand
  * @returns {number} Result of calculation
  */
-// 
+// Template literal
 export const calculate = (firstNum = 0, operator = '+', secondNum = 0) => {
     switch(operator) {
         case '+':
@@ -60,10 +61,12 @@ export const calculate = (firstNum = 0, operator = '+', secondNum = 0) => {
     }
 };
 
+// default parameters
 export const showMessage = (result = 0) => {
     return `The result is ${result}`;
 }
 
+// spread operator
 export const copyNumbers = (Numbers = [1,2,3]) => {
     const newNumbers = [...numbers,4,5];
     return newNumbers;
@@ -78,21 +81,5 @@ export const formatNumber = (num = 0) => {
     return parseFloat(num.toFixed(10)).toString();
 };
 
-// ES6 arrow funtion
-const addNumbers = (a,b) => a + b;
-
-// Template literal
-const message = (name = "Arabi") => {
-    return `Hello ${name}`;
-};
-
-// ES6 spread operator
-const number = [1,2,3];
-const newNumbers = [...numbers,4];
-
-// default parameters
-const WelcomeUser = (name = "Motlabi") => {
-    return `Welcome ${name}`;
-}
 
 
