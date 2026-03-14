@@ -78,3 +78,17 @@ export const formatNumber = (num = 0) => {
 };
 
 
+const addNumbers = (a,b) => a + b;
+
+const message = (name = "Arabi") => {
+    return 'Hello ${name}';
+};
+
+const number = [1,2,3];
+const newNumbers = [...numbers,4];
+
+const greet = (name = "Motlabi") => {
+    return 'Welcome ${name}';
+}
+
+
