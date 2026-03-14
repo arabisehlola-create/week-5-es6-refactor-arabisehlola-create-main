@@ -7,7 +7,7 @@
  * @returns {number} Sum of a and b
  */
 // ES6 arrow function 
-export const add = (a = 0, b = 0) => a + b;
+export const add = (a, b = 0) => a + b;
 
 /**
  * Subtract two numbers
@@ -15,7 +15,7 @@ export const add = (a = 0, b = 0) => a + b;
  * @param {number} b - Second number
  * @returns {number} Difference of a and b
  */
-export const subtract = (a = 0, b = 0) => a - b;
+export const subtract = (a, b = 0) => a - b;
 
 /**
  * Multiply two numbers
@@ -31,11 +31,10 @@ export const multiply = (a = 1, b = 1) => a * b;
  * @param {number} b - Second number (divisor)
  * @returns {number} Quotient of a and b
  */
-export const divide = (a = 0, b = 1) => {
-    if (b === 0) {
-        throw new Error('Cannot divide by zero');
-    }
-    return a / b;
+export const divide = (a, b = 1) => {
+    if (b === 0)
+        throw new Error(`Cannot divide by zero`);
+        return a/ b;    
 };
 
 /**
@@ -61,25 +60,19 @@ export const calculate = (firstNum = 0, operator = '+', secondNum = 0) => {
     }
 };
 
-// default parameters
-export const showMessage = (result = 0) => {
-    return `The result is ${result}`;
-}
-
-// spread operator
-export const copyNumbers = (Numbers = [1,2,3]) => {
-    const newNumbers = [...numbers,4,5];
-    return newNumbers;
-}
+/** add multiple numbers using spread operator 
+ * @param {...number} nums -numbers to add
+ * @returns {number} Sum of all numbers 
+ */
+export const addMultiple = (...nums) =>
+    nums.reduce((acc, n) => acc + n, 0);
 
 /**
  * Format number to remove trailing zeros
  * @param {number} num - Number to format
  * @returns {string} Formatted number
  */
-export const formatNumber = (num = 0) => {
-    return parseFloat(num.toFixed(10)).toString();
-};
+export const formatNumber = (num = 0) => `$ {parsefloat(num.tofixed(10))}`;
 
 
 
