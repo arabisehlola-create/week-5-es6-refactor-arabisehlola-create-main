@@ -6,7 +6,7 @@
  * @param {number} b - Second number
  * @returns {number} Sum of a and b
  */
-export const add = (a, b) => a + b;
+export const add = (a = 0, b = 0) => a + b;
 
 /**
  * Subtract two numbers
@@ -14,7 +14,7 @@ export const add = (a, b) => a + b;
  * @param {number} b - Second number
  * @returns {number} Difference of a and b
  */
-export const subtract = (a, b) => a - b;
+export const subtract = (a = 0, b = 0) => a - b;
 
 /**
  * Multiply two numbers
@@ -22,7 +22,7 @@ export const subtract = (a, b) => a - b;
  * @param {number} b - Second number
  * @returns {number} Product of a and b
  */
-export const multiply = (a, b) => a * b;
+export const multiply = (a = 1, b = 1) => a * b;
 
 /**
  * Divide two numbers
@@ -30,7 +30,7 @@ export const multiply = (a, b) => a * b;
  * @param {number} b - Second number (divisor)
  * @returns {number} Quotient of a and b
  */
-export const divide = (a, b) => {
+export const divide = (a = 0, b = 1) => {
     if (b === 0) {
         throw new Error('Cannot divide by zero');
     }
@@ -44,7 +44,7 @@ export const divide = (a, b) => {
  * @param {number} secondNum - Second operand
  * @returns {number} Result of calculation
  */
-export const calculate = (firstNum, operator, secondNum) => {
+export const calculate = (firstNum = 0, operator = '+', secondNum = 0) => {
     switch(operator) {
         case '+':
             return add(firstNum, secondNum);
@@ -58,6 +58,15 @@ export const calculate = (firstNum, operator, secondNum) => {
             throw new Error(`Unknown operator: ${operator}`);
     }
 };
+
+export const showMessage = (result = 0) => {
+    return 'The result is ${result}';
+}
+
+export const copyNumbers = (Numbers = []) => {
+    const newNumbers = [...numbers];
+    return newNumbers;
+}
 
 /**
  * Format number to remove trailing zeros
